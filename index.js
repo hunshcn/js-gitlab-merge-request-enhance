@@ -3,10 +3,9 @@
 // @namespace   gitlab_mr_enhance
 // @match       https://*git*/*/*/-/merge_requests
 // @grant       none
-// @version     1.0
+// @version     1.0.1
 // @author      hunsh
 // @homepageURL https://github.com/hunshcn/js-gitlab-merge-request-enhance
-// @description 2022/11/23 18:24:23
 // @license     MIT
 // ==/UserScript==
 (function () {
@@ -71,7 +70,9 @@
     const anchor = $(this).find(".merge-request-title-text a")[0];
     const metaList = $(this).find(".issuable-meta ul")[0];
 
-    getMergeRequestInfo(anchor.href, metaList).then();
-    checkRebase(anchor.href, metaList).then();
+    if (!metaList.innerHTML.includes('MERGED')) {
+      getMergeRequestInfo(anchor.href, metaList).then();
+      checkRebase(anchor.href, metaList).then();
+    }
   });
 })()
